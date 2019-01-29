@@ -1,108 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
 
-    <TextView
-        android:id="@+id/contact_form_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="5dp"
-        android:text="Format Edukasi"
-        android:textColor="@color/colorPrimary"
-        android:textSize="40sp"
-        android:typeface="serif" />
-
-    <EditText
-        android:id="@+id/nama_pelanggan"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="Nama. (Bapak / Ibu xxx)"
-        android:inputType="textFilter|textNoSuggestions"
-        android:importantForAutofill="no"
-        />
-
-    <EditText
-        android:id="@+id/phone_number"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="Phone Number. (628xxxxxxxxx)"
-        android:inputType="number|textFilter|textNoSuggestions"
-        android:importantForAutofill="no"
-        />
-
-    <EditText
-        android:id="@+id/nomer_tiket"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="Nomer Tiket"
-        android:inputType="textFilter|textNoSuggestions"
-        android:importantForAutofill="no"
-        />
-
-    <EditText
-        android:id="@+id/nomer_layanan"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:hint="Nomer Layanan"
-        android:inputType="number|textFilter|textNoSuggestions"
-        android:importantForAutofill="no"
-        />
-    
-    <RadioGroup
-        android:id="@+id/radio_group"
-        android:layout_marginTop="8dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
         <TextView
-            android:padding="8dp"
+            android:id="@+id/contact_form_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="5dp"
+            android:text="WhatsApp Edukasi"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/nama_pelanggan"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:hint="Nama. (Bapak / Ibu xxx)"
+            android:inputType="textFilter|textNoSuggestions"
+            android:importantForAutofill="no"
+            />
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:hint="Phone Number. (628xxxxxxxxx)"
+            android:inputType="number|textFilter|textNoSuggestions"
+            android:importantForAutofill="no"
+            />
+
+        <EditText
+            android:id="@+id/nomer_tiket"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:hint="Nomer Tiket"
+            android:inputType="textFilter|textNoSuggestions"
+            android:importantForAutofill="no"
+            />
+
+        <EditText
+            android:id="@+id/nomer_layanan"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:hint="Nomer Layanan"
+            android:inputType="number|textFilter|textNoSuggestions"
+            android:importantForAutofill="no"
+            />
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Jenis Edukasi"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:layout_marginBottom="8dp"/>
+            android:orientation="vertical">
+            <TextView
+                android:padding="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jenis Edukasi"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="8dp"/>
 
-        <RadioButton android:id="@+id/radio_cabut"
+            <RadioButton android:id="@+id/radio_cabut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Edukasi Cabut Usee TV"
+                />
+
+            <RadioButton android:id="@+id/radio_cabut_usee_inet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Edukasi Cabut Internet dan Usee TV"
+                />
+
+            <RadioButton
+                android:id="@+id/radio_shareloc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Edukasi Share Location"
+                />
+
+            <RadioButton
+                android:id="@+id/radio_isolir_sementara"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Edukasi Isolir Sementara"
+                />
+
+            <RadioButton
+                android:id="@+id/radio_custom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Custom Chat"
+                />
+
+        </RadioGroup>
+
+
+        <EditText
+            android:padding="8dp"
+            android:id="@+id/custom_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@drawable/edittext_border"
+            android:hint="ISIKAN INTI PESAN"
+            android:inputType="textMultiLine|textNoSuggestions|textFilter"/>
+
+        <Button
+            android:layout_marginTop="16dp"
+            android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edukasi Cabut Usee TV"
-            />
-
-        <RadioButton android:id="@+id/radio_cabut_usee_inet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edukasi Cabut Usee TV dan Internet"
-            />
-
-    </RadioGroup>
-
-    <Button
-        android:layout_marginTop="8dp"
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:background="@color/colorPrimaryDark"
-        android:elevation="4dp"
-        android:paddingLeft="70dp"
-        android:paddingRight="70dp"
-        android:text="Submit"
-        android:textColor="#fff" />
-
-</LinearLayout>
+            android:layout_gravity="center|bottom"
+            android:background="@color/colorPrimaryDark"
+            android:elevation="4dp"
+            android:paddingLeft="70dp"
+            android:paddingRight="70dp"
+            android:text="Submit"
+            android:textColor="#fff" />
+    </LinearLayout>
+</ScrollView>

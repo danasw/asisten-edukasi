@@ -1,4 +1,4 @@
-package jogja.telkom.whatsappmessage;
+package jogja.telkom.edukasiwhatsapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

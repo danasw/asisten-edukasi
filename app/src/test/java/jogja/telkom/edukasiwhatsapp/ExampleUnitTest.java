@@ -1,4 +1,4 @@
-package jogja.telkom.whatsappmessage;
+package jogja.telkom.edukasiwhatsapp;
 
 import org.junit.Test;
 
