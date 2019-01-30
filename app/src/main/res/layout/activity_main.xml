@@ -29,7 +29,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:hint="Nama. (Bapak / Ibu xxx)"
+            android:hint="Nama. (Bapak / Ibu Nama)"
             android:inputType="textFilter|textNoSuggestions"
             android:importantForAutofill="no"
             />
@@ -39,7 +39,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:hint="Phone Number. (628xxxxxxxxx)"
+            android:hint="Phone Number. (081xxxxxxx)"
             android:inputType="number|textFilter|textNoSuggestions"
             android:importantForAutofill="no"
             />
