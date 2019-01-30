@@ -114,6 +114,22 @@
                 />
 
             <RadioButton
+                android:id="@+id/radio_respon_general"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Respon Laporan Umum"
+                />
+
+            <RadioButton
+                android:id="@+id/radio_respon_tagihan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Respon Tagihan Tidak Sesuai"
+                />
+
+            <RadioButton
                 android:id="@+id/radio_custom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,7 +138,6 @@
                 />
 
         </RadioGroup>
-
 
         <EditText
             android:padding="8dp"
