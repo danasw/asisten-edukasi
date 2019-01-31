@@ -70,74 +70,104 @@
 
         <RadioGroup
             android:id="@+id/radio_group"
-            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:orientation="vertical">
+
             <TextView
-                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:padding="8dp"
                 android:text="Jenis Edukasi"
-                android:textSize="20sp"
                 android:textColor="@android:color/black"
-                android:layout_marginBottom="8dp"/>
+                android:textSize="20sp" />
 
-            <RadioButton android:id="@+id/radio_cabut"
+            <RadioButton
+                android:id="@+id/radio_cabut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Edukasi Cabut Usee TV"
-                />
+                android:text="Edukasi Cabut Usee TV" />
 
-            <RadioButton android:id="@+id/radio_cabut_usee_inet"
+            <RadioButton
+                android:id="@+id/radio_cabut_usee_inet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Edukasi Cabut Internet dan Usee TV"
-                />
+                android:text="Edukasi Cabut Internet dan Usee TV" />
 
             <RadioButton
                 android:id="@+id/radio_shareloc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Edukasi Share Location"
-                />
+                android:text="Edukasi Share Location" />
 
             <RadioButton
                 android:id="@+id/radio_isolir_sementara"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Edukasi Isolir Sementara"
-                />
+                android:text="Edukasi Isolir Sementara" />
+
+            <RadioButton
+                android:id="@+id/radio_pelunasan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Edukasi Melunasi Tagihan"/>
 
             <RadioButton
                 android:id="@+id/radio_respon_general"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Respon Laporan Umum"
-                />
+                android:text="Respon Laporan Umum" />
 
             <RadioButton
                 android:id="@+id/radio_respon_tagihan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Respon Tagihan Tidak Sesuai"
-                />
+                android:text="Respon Tagihan Tidak Sesuai" />
 
             <RadioButton
                 android:id="@+id/radio_custom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onRadioButtonClicked"
-                android:text="Custom Chat"
-                />
+                android:text="Custom Chat" />
 
         </RadioGroup>
+
+        <EditText
+            android:padding="8dp"
+            android:id="@+id/tagihan_lebih"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:hint="Jumlah Kelebihan Tagihan"
+            android:inputType="number|textNoSuggestions|textFilter"/>
+        <EditText
+            android:padding="8dp"
+            android:id="@+id/tagihan_akhir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:hint="Tagihan Koreksi"
+            android:inputType="number|textNoSuggestions|textFilter"/>
+        <EditText
+            android:padding="8dp"
+            android:id="@+id/alasan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@drawable/edittext_border"
+            android:hint="Alasan Terkait Pelaporan"
+            android:inputType="textMultiLine|textNoSuggestions|textFilter"/>
+
 
         <EditText
             android:padding="8dp"
