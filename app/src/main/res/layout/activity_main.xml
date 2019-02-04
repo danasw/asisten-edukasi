@@ -99,6 +99,13 @@
                 android:text="Edukasi Cabut Internet dan Usee TV" />
 
             <RadioButton
+                android:id="@+id/radio_seamless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:text="Edukasi Registrasi WiFi Id Seamless" />
+
+            <RadioButton
                 android:id="@+id/radio_shareloc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

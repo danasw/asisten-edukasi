@@ -1,11 +1,9 @@
 package jogja.telkom.edukasiwhatsapp;
 
-import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -126,19 +124,23 @@ public class MainActivity extends AppCompatActivity {
 
                         //Do Edukasi Cabut Usee TV
                         if (radioPoll.getText().toString().equalsIgnoreCase("Edukasi Cabut Usee TV")) {
-                            sendEdukasiCabutUsee(number, waktu, name, tiket, nomerLayanan);
+                            FormatEdukasi.sendEdukasiCabutUsee(MainActivity.this, number, waktu, name, tiket, nomerLayanan);
                         }
                         //Do Edukasi Cabut Usee dan Internet
                         else if(radioPoll.getText().toString().equalsIgnoreCase("Edukasi Cabut Internet dan Usee TV")) {
-                            sendEdukasiCabutUseeInet(number, waktu, name, tiket, nomerLayanan);
+                            FormatEdukasi.sendEdukasiCabutUseeInet(MainActivity.this, number, waktu, name, tiket, nomerLayanan);
+                        }
+                        //Do Edukasi Seamless
+                        else if(radioPoll.getText().toString().equalsIgnoreCase("Edukasi Registrasi WiFi Id Seamless")) {
+                            FormatEdukasi.sendEdukasiSeamless(MainActivity.this, number, waktu, name, tiket, nomerLayanan);
                         }
                         //Do Edukasi Share Loc
                         else if (radioPoll.getText().toString().equalsIgnoreCase("Edukasi Share Location")){
-                            sendEdukasiShareLocation(number,waktu,name,tiket,nomerLayanan);
+                            FormatEdukasi.sendEdukasiShareLocation(MainActivity.this, number,waktu,name,tiket,nomerLayanan);
                         }
                         //Do Edukasi Isolir Sementara
                         else if (radioPoll.getText().toString().equalsIgnoreCase("Edukasi Isolir Sementara")){
-                            sendEdukasiIsolirSementara(number,waktu,name,tiket,nomerLayanan);
+                            FormatEdukasi.sendEdukasiIsolirSementara(MainActivity.this, number,waktu,name,tiket,nomerLayanan);
                         }
                         //Do Edukasi Pelunasan
                         else if (radioPoll.getText().toString().equalsIgnoreCase("Edukasi Melunasi Tagihan")){
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                                 textAlasan.setError("ISI ALASAN");
                             }
                             else {
-                                sendEdukasiPelunasan(number, waktu, name, tiket, nomerLayanan, alasan);
+                                FormatEdukasi.sendEdukasiPelunasan(MainActivity.this, number, waktu, name, tiket, nomerLayanan, alasan);
                             }
                         }
                         //Do Respon Laporan UMUM
@@ -156,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                                 textAlasan.setError("ISI ALASAN");
                             }
                             else {
-                                sendResponGeneral(number, waktu, name, tiket, nomerLayanan, alasan);
+                                FormatEdukasi.sendResponGeneral(MainActivity.this, number, waktu, name, tiket, nomerLayanan, alasan);
                             }
                         }
                         //Respon Tagihan tidak sesuai
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                                 textAlasan.setError("ISI ALASAN KELEBIHAN");
                             }
                             else {
-                                sendResponTagihan(number,waktu,name,tiket,nomerLayanan,tagihanLebih,tagihanAkhir,alasan);
+                                FormatEdukasi.sendResponTagihan(MainActivity.this, number,waktu,name,tiket,nomerLayanan,tagihanLebih,tagihanAkhir,alasan);
                             }
                         }
                         //Custom Chat
@@ -180,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                                 textCustom.setError("ISI INTI DARI PESAN");
                             }
                             else {
-                            sendEdukasiCustom(number,waktu,name,tiket,nomerLayanan,pesanCustom);
+                            FormatEdukasi.sendEdukasiCustom(MainActivity.this, number,waktu,name,tiket,nomerLayanan,pesanCustom);
                             }
                         }
                     }
@@ -306,279 +308,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void sendEdukasiCabutUsee(String number , String waktu, String name , String tiket, String nomerLayanan) {
-        String pesan = "Selamat " + waktu + " " + name + ". Kami dari Telkom. Maaf mengganggu waktunya."
-                + "Terkait dengan laporan dinomer tiket " + tiket + " dengan nomer layanan " + nomerLayanan
-                + " untuk Cabut UseeTv sudah kami proses melalui sistem. \n\n"
-                + "Untuk pencabutan UseeTV dimohon ke PlasaTelkom, Mohon dibantu dengan membawa :\n"
-                + "perangkat STB dan remote,\n" +
-                "FC KTP ,\n" +
-                "dan materai 6ribu.\n" +
-                "Karena ada berkas yang harus ditandatangani.\n\n"
-                + "Dan untuk informasi, bahwa nanti" + " " + name
-                + " tidak perlu mengantri lagi. Ketika sudah di plasa telkom sampaikan saja ke satpam di depan bahwa ini untuk pengembalian perangkat terkait cabut useetv.\n\n" +
-                "Mohon maaf"+ " " + name + " sekiranya kapan bisa datang ke plasa telkom? untuk kami catatkan dinotifikasi kami. \n\n"
-                +"Demikian informasi yang dapat kami sampaikan.Kami mohon izin untuk menutup laporannya karena kami sudah tindak lanjuti.\n" +
-                "Terimakasih";
-
-        //Copy Pesan
-        Object clipboardService = getSystemService(CLIPBOARD_SERVICE);
-        final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
-        // Create a new ClipData.
-        ClipData clipData = ClipData.newPlainText("Source Text", pesan);
-        // Set it as primary clip data to copy text to system clipboard.
-        clipboardManager.setPrimaryClip(clipData);
-
-        PackageManager packageManager = getPackageManager();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        try {
-            String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + pesan;
-            i.setPackage("com.whatsapp");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                startActivity(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendEdukasiCabutUseeInet(String number , String waktu, String name , String tiket, String nomerLayanan) {
-        String pesan = "Selamat "
-                + waktu
-                + " "
-                + name
-                + "."
-                + "Kami dari Telkom. Maaf mengganggu waktunya."
-                + "Terkait dengan laporan dinomer tiket "
-                + tiket
-                + " dengan nomer layanan" + " "
-                + nomerLayanan
-                + " untuk Cabut UseeTv dan internet sudah kami proses melalui sistem. \n\n"
-                + "Untuk pencabutan UseeTV dan Internet dimohon ke PlasaTelkom, Mohon dibantu dengan membawa :\n" +
-                "Perangkat ONT,\n" +
-                "perangkat STB dan remote,\n" +
-                "FC KTP ,\n" +
-                "dan materai 6ribu \n" +
-                "Karena ada berkas yang harus ditandatangani.\n\n"
-                + "Dan untuk informasi"
-                + " bahwa nanti" + " "
-                + name
-                + " tidak perlu mengantri lagi. Ketika sudah di plasa telkom sampaikan saja ke satpam di depan bahwa ini untuk pengembalian perangkat terkait cabut useetv dan internet.\n" +
-                " \n" +
-                "Mohon maaf" + " "
-                + name
-                + " sekiranya kapan bisa datang ke plasa telkom? untuk kami catatkan dinotifikasi kami. \n" +
-                " \n" +
-                "Demikian informasi yang dapat kami sampaikan.Kami mohon izin untuk menutup laporannya karena kami sudah tindak lanjuti. \n" +
-                "Terimakasih";
-
-        //Copy Pesan
-        Object clipboardService = getSystemService(CLIPBOARD_SERVICE);
-        final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
-        // Create a new ClipData.
-        ClipData clipData = ClipData.newPlainText("Source Text", pesan);
-        // Set it as primary clip data to copy text to system clipboard.
-        clipboardManager.setPrimaryClip(clipData);
-
-        PackageManager packageManager = getPackageManager();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        try {
-            String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + pesan;
-            i.setPackage("com.whatsapp");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                startActivity(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendEdukasiShareLocation(String number , String waktu, String name , String tiket, String nomerLayanan){
-        String pesan = "Selamat " + waktu + " " + name + ". Kami dari Telkom. Maaf mengganggu waktunya."
-                + "Terkait dengan laporan dinomer tiket " + tiket + " dengan nomer layanan " + nomerLayanan + ".\n\n"
-                + "Terkait dengan permintaan"+ " " +name + " untuk pasang indihome , mohon berkenan bisa dikirimkan Share Location yg tepat , di lokasi yang akan dilakukan pemasangan. Agar kami bisa mengecek jaringan Fiber Optik terdekat dari lokasi.\n\n"
-                +"Demikian informasi yang dapat kami sampaikan.\nKami tunggu konfirmasi dari"+" " + name +".\n" +
-                "Terimakasih";
-
-        //Copy Pesan
-        Object clipboardService = getSystemService(CLIPBOARD_SERVICE);
-        final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
-        // Create a new ClipData.
-        ClipData clipData = ClipData.newPlainText("Source Text", pesan);
-        // Set it as primary clip data to copy text to system clipboard.
-        clipboardManager.setPrimaryClip(clipData);
-
-        PackageManager packageManager = getPackageManager();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-
-        try {
-            String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + pesan;
-            i.setPackage("com.whatsapp");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                startActivity(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendEdukasiIsolirSementara(String number , String waktu, String name , String tiket, String nomerLayanan){
-        PackageManager packageManager = getPackageManager();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        String pesan = "Selamat " + waktu + " " + name + ". Kami dari Telkom. Maaf mengganggu waktunya."
-                + "Terkait dengan laporan dinomer tiket " + tiket + " dengan nomer layanan " + nomerLayanan + ".\n\n"
-                + "Kami sampaikan informasi bahwa untuk isolir sementara dikenai biaya 55 ribu dan dimohon ke Plasa Telkom dengan membawa : \nFC KTP,\nmaterai 6rb,\ndan bukti pembayaran trakhir krn ada berkas yang harus ditandatangani.\n\n"
-                +"Demikian informasi yang dapat kami sampaikan.\n" +
-                "Terimakasih";
-
-        //Copy Pesan
-        Object clipboardService = getSystemService(CLIPBOARD_SERVICE);
-        final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
-        // Create a new ClipData.
-        ClipData clipData = ClipData.newPlainText("Source Text", pesan);
-        // Set it as primary clip data to copy text to system clipboard.
-        clipboardManager.setPrimaryClip(clipData);
-
-        try {
-            String url = "https://api.whatsapp.com/send?phone=" + number + "&text=" + pesan;
-            i.setPackage("com.whatsapp");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                startActivity(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendEdukasiPelunasan(String number, String waktu, String name, String tiket, String nomerLayanan, String alasan){
-
-        String pesan = "Selamat "+waktu+", "+ name +". \n" +
-                "Kami dari Telkom, ingin menginformasikan tentang laporan " + name + " dinomer tiket "
-                + tiket + " dengan nomer layanan " + nomerLayanan + ", terkait " + alasan + ". \n" +
-                "Sebelum permintaan bisa kami proses dimohon untuk melunasi tagihan terlebih dahulu.\n"+
-                "Terimakasih.\n";
-
-        //Copy Pesan
-        Object clipboardService = getSystemService(CLIPBOARD_SERVICE);
-        final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
-        // Create a new ClipData.
-        ClipData clipData = ClipData.newPlainText("Source Text", pesan);
-        // Set it as primary clip data to copy text to system clipboard.
-        clipboardManager.setPrimaryClip(clipData);
-
-        PackageManager packageManager = getPackageManager();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        try {
-            String url = "https://api.whatsapp.com/send?phone=" + number+ "&text=" + pesan;
-            i.setPackage("com.whatsapp");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                startActivity(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendResponGeneral(String number, String waktu, String name, String tiket, String nomerLayanan, String alasan){
-
-        String pesan = "Selamat "+waktu+", "+ name +". \n" +
-                "Kami dari Telkom, ingin menginformasikan tentang laporan " + name + " dinomer tiket "
-                + tiket + " dengan nomer layanan " + nomerLayanan + ", terkait " + alasan + " sudah kami proses. \n" +
-                "Kami minta izin untuk menutup laporan "+ name +".\n"+
-                "Terimakasih.\n";
-
-        //Copy Pesan
-        Object clipboardService = getSystemService(CLIPBOARD_SERVICE);
-        final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
-        // Create a new ClipData.
-        ClipData clipData = ClipData.newPlainText("Source Text", pesan);
-        // Set it as primary clip data to copy text to system clipboard.
-        clipboardManager.setPrimaryClip(clipData);
-
-        PackageManager packageManager = getPackageManager();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        try {
-            String url = "https://api.whatsapp.com/send?phone=" + number+ "&text=" + pesan;
-            i.setPackage("com.whatsapp");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                startActivity(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendResponTagihan(String number, String waktu, String name, String tiket, String nomerLayanan, String tagihanLebih, String tagihanAkhir, String alasan){
-
-        String pesan = "Selamat "+waktu+", "+name+ ". \n" +
-                "Kami dari Telkom, ingin menginformasikan tentang laporan "+name+ " di nomor " + nomerLayanan +
-                " dengan nomor tiket " + tiket + ", terkait tagihan tidak sudah kami proses. \n" +
-                "\n" +
-                "Adanya kelebihan tagihan sebesar Rp. " + tagihanLebih + ",-" + " dikarenakan "+ alasan +
-                ", dan sudah kami benahi manjadi Rp. "+ tagihanAkhir +",-. \n" +
-                "\n" +
-                "Kami informasikan juga bahwa "+name+" tidak perlu khawatir apabila tagihan pada aplikasi MyIndiHome belum diperbarui, karena dalam sistem kami sudah diperbarui. \n" +
-                "\n" +
-                "Kami minta izin untuk menutup laporan "+name+". \n" +
-                "Terimakasih.\n";
-
-        //Copy Pesan
-        Object clipboardService = getSystemService(CLIPBOARD_SERVICE);
-        final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
-        // Create a new ClipData.
-        ClipData clipData = ClipData.newPlainText("Source Text", pesan);
-        // Set it as primary clip data to copy text to system clipboard.
-        clipboardManager.setPrimaryClip(clipData);
-
-        PackageManager packageManager = getPackageManager();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        try {
-            String url = "https://api.whatsapp.com/send?phone=" + number+ "&text=" + pesan;
-            i.setPackage("com.whatsapp");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                startActivity(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendEdukasiCustom(String number, String waktu, String name, String tiket, String nomerLayanan, String pesanCustom){
-
-        String pesan = "Selamat "+ waktu+ " "+ name+ "."+ "Kami dari Telkom. Maaf mengganggu waktunya."
-                + "Terkait dengan laporan dinomer tiket" + " "+ tiket+ " dengan nomer layanan" + " "+ nomerLayanan + ".\n\n"
-                + pesanCustom+ "\n\n"+ "Demikian informasi yang dapat kami sampaikan.Kami mohon izin untuk menutup laporannya karena kami sudah tindak lanjuti. \n"
-                + "Terimakasih";
-
-        //Copy Pesan
-        Object clipboardService = getSystemService(CLIPBOARD_SERVICE);
-        final ClipboardManager clipboardManager = (ClipboardManager)clipboardService;
-        // Create a new ClipData.
-        ClipData clipData = ClipData.newPlainText("Source Text", pesan);
-        // Set it as primary clip data to copy text to system clipboard.
-        clipboardManager.setPrimaryClip(clipData);
-
-        PackageManager packageManager = getPackageManager();
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        try {
-            String url = "https://api.whatsapp.com/send?phone=" + number+ "&text=" + pesan;
-            i.setPackage("com.whatsapp");
-            i.setData(Uri.parse(url));
-            if (i.resolveActivity(packageManager) != null) {
-                startActivity(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void onRadioButtonClicked(View view) {
 
         // Is the button now checked?
@@ -593,6 +322,13 @@ public class MainActivity extends AppCompatActivity {
                     textCustom.setVisibility(View.GONE);
                 break;
             case R.id.radio_cabut_usee_inet:
+                if (checked)
+                    textTagihanLebih.setVisibility(View.GONE);
+                    textTagihanAkhir.setVisibility(View.GONE);
+                    textAlasan.setVisibility(View.GONE);
+                    textCustom.setVisibility(View.GONE);
+                break;
+            case R.id.radio_seamless:
                 if (checked)
                     textTagihanLebih.setVisibility(View.GONE);
                     textTagihanAkhir.setVisibility(View.GONE);
