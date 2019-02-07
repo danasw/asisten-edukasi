@@ -1,1 +1,2 @@
-http://bit.ly/asistenEdukasi
+Asisten Edukasi via WhatsApp
+http://bit.ly/ProyekTelkom
