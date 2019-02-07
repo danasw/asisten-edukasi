@@ -183,7 +183,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:background="@drawable/edittext_border"
-            android:hint="ISIKAN INTI PESAN"
+            android:hint="ISIKAN INTI PESAN. HINDARI PENGGUNAAN KARAKTER % dan &amp;"
             android:inputType="textMultiLine|textNoSuggestions|textFilter"/>
 
         <Button
